@@ -1,6 +1,4 @@
 structure.txt
 __pycache__/
 app/__pycache__/
-app/models.py
-app/routes.py
-main.py
+
