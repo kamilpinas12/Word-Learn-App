@@ -10,3 +10,38 @@ h1 {
     padding: 10px;
 }
 
+.sidenav {
+    position: fixed;
+    height: 100%;
+    width: 160px;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    background-color: #111;
+    padding-top: 100px;
+}
+
+.sidenav a{
+    text-decoration: none;
+    padding: 6px 8px 6px 16px;
+    display: block;
+    color: #818181;
+    font_size: 25px;
+}
+
+.sidenav a:hover{
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 160px;
+    font-size: 28px;
+    padding: 0px 10px;
+    margin-top: 70px;
+}
+
+@media screen and (max-height: 450px){
+    .sidenav{padding-top: 15px;}
+    .sidenav a{font-size: 18px;}
+}
