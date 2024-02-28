@@ -7,6 +7,11 @@ from app import app
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/test', methods=['POST', 'GET'])
 def index():
-    return flask.render_template('base.html')
+    return flask.render_template('test.html')
+
+
+@app.route('/add_word', methods=['POST', 'GET'])
+def add_word():
+    return flask.render_template('add_word.html')
