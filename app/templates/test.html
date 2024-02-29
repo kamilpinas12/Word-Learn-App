@@ -2,6 +2,14 @@
 
 {% block content %}
 
-    <h1>Test</h1>
+    <h3>Test</h3>
+
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.answer.label }} <br>
+            {{ form.answer(size=32) }}
+        </p>
+    </form>
 
 {% endblock %}
