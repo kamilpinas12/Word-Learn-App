@@ -14,4 +14,4 @@ class LearnForm(FlaskForm):
 class AddWordForm(FlaskForm):
     question = StringField('Question', validators=[DataRequired()])
     answer = StringField('Answer', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Add')
