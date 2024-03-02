@@ -3,15 +3,15 @@
 import flask
 from flask import render_template
 from app import app
-from app.forms import TestForm, AddWordForm
+from app.forms import LearnForm, AddWordForm
 
 
 
 @app.route('/')
-@app.route('/test', methods=['POST', 'GET'])
-def test():
-    form = TestForm()
-    return flask.render_template('test.html', form=form)
+@app.route('/learn', methods=['POST', 'GET'])
+def learn():
+    form = LearnForm()
+    return flask.render_template('learn.html', form=form)
 
 
 @app.route('/add_word', methods=['POST', 'GET'])

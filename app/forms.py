@@ -4,7 +4,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
-class TestForm(FlaskForm):
+
+
+class LearnForm(FlaskForm):
     answer = StringField('Answer')
     submit = SubmitField('Submit')
 
@@ -12,3 +14,4 @@ class TestForm(FlaskForm):
 class AddWordForm(FlaskForm):
     question = StringField('Question', validators=[DataRequired()])
     answer = StringField('Answer', validators=[DataRequired()])
+    submit = SubmitField('Submit')
