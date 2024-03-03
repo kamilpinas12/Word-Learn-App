@@ -3,8 +3,13 @@
 
 import flask
 from flask import render_template
-from app import app
+from app import app, db
 from app.forms import LearnForm, AddWordForm
+from app.models import User
+
+
+# mock user
+user = db.session.get(User, 1)
 
 
 @app.route('/')
