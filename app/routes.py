@@ -9,7 +9,6 @@ from app.models import User
 
 
 # mock user
-user = db.session.get(User, 1)
 
 
 @app.route('/')
