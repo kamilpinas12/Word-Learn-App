@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Add Dataset</h3>
+
+<form autocomplete="off" action="" method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <p>
+    {{ form.dataset_name.label }} <br>
+    {{ form.dataset_name(size=32) }}
+  </p>
+  <p>
+    {{ form.submit() }} <br>
+  </p>
+</form>
+
+{% endblock %}

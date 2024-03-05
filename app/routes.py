@@ -4,7 +4,7 @@
 import flask
 from flask import render_template
 from app import app, db
-from app.forms import LearnForm, AddWordForm
+from app.forms import LearnForm, AddWordForm, AddDataset
 from app.models import User
 
 
@@ -34,3 +34,11 @@ def add_word():
         return flask.redirect('/add_word')
 
     return flask.render_template('add_word.html', form=form)
+
+
+@app.route('/add_dataset', methods=['POST', 'GET'])
+def add_dataset():
+    form = AddDataset()
+    if form.validate_on_submit():
+        return flask.redirect('/add_dataset')
+    return flask.render_template('add_dataset.html', form=form)

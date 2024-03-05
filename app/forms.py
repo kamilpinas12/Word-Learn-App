@@ -15,3 +15,8 @@ class AddWordForm(FlaskForm):
     question = StringField('Question', validators=[DataRequired()])
     answer = StringField('Answer', validators=[DataRequired()])
     submit = SubmitField('Add')
+
+
+class AddDataset(FlaskForm):
+    dataset_name = StringField('Enter dataset name')
+    submit = SubmitField('Submit')
