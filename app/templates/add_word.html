@@ -4,6 +4,8 @@
 
     <h3>Add word</h3>
 
+
+    {% if is_dataset_selected %}
     <form autocomplete="off" action="" method="POST" novalidate>
         {{ form.hidden_tag() }}
         <p>
@@ -18,4 +20,8 @@
             {{ form.submit() }}
         </p>
     </form>
+    {% else %}
+        <p>First you need to select dataset</p>
+    {% endif %}
+
 {% endblock %}

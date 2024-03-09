@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3>Add Dataset</h3>
+<h3>Create Dataset</h3>
 
 <form autocomplete="off" action="" method="POST" novalidate>
   {{ form.hidden_tag() }}
@@ -14,5 +14,11 @@
     {{ form.submit() }} <br>
   </p>
 </form>
+
+{% if feedback == 1 %}
+  <p>Successfully created {{new_name}} dataset</p>
+{% elif feedback == 0 %}
+  <p>Dataset with name: {{new_name}} already exist</p>
+{% endif %}
 
 {% endblock %}
