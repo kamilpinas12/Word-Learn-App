@@ -19,15 +19,15 @@ h1 {
     left: 0;
     overflow-x: hidden;
     background-color: #111;
-    padding-top: 100px;
+    padding-top: 200px;
 }
 
 .sidenav a{
     text-decoration: none;
-    padding: 6px 8px 6px 16px;
+    padding: 12px 8px 6px 16px;
     display: block;
     color: #818181;
-    font_size: 25px;
+    font_size: 35px;
 }
 
 .sidenav a:hover{
@@ -35,10 +35,11 @@ h1 {
 }
 
 .main {
-    margin-left: 160px;
+    margin-left: 200px;
     font-size: 28px;
     padding: 0px 10px;
     margin-top: 70px;
+    font-family: verdana;
 }
 
 @media screen and (max-height: 450px){

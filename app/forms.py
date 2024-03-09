@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired
 
 
 class LearnForm(FlaskForm):
-    answer = StringField('Answer')
+    answer = StringField('Answer', render_kw={'autofocus': True})
     submit = SubmitField('Submit')
 
 

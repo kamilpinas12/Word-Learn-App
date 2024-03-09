@@ -4,7 +4,6 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app import db
-from datetime import datetime
 
 
 class User(db.Model):
@@ -42,7 +41,7 @@ class Pair(db.Model):
 
     dataset_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(DatasetInfo.id),
                                                   index=True)
-    dataset_info: so.Mapped[DatasetInfo] = so.relationship(
+    dataset_name: so.Mapped[DatasetInfo] = so.relationship(
         back_populates='pair')
 
     def __repr__(self):

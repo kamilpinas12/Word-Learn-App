@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if datasets|length < 1 %}
+    <h4>There are no datasets</h4>
+{% else %}
+    <h3>Select Dataset</h3>
+    {% for dataset in datasets %}
+        <a href="/set_dataset/{{dataset.id}}">{{dataset.name}}</a>
+        <br>
+    {% endfor %}
+{% endif %}
+{% endblock %}

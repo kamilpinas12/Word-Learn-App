@@ -5,15 +5,28 @@ import flask
 from flask import render_template
 from app import app, db
 from app.forms import LearnForm, AddWordForm, AddDataset
-from app.models import User
+from app.models import User, DatasetInfo, Pair
+import sqlalchemy as sa
 
 
-# mock user
+app.app_context().push()
 
+#only one user for now
+global_user_id = 1
+global_dataset_id = None
 
 @app.route('/')
-def empty():
-    return flask.render_template('base.html')
+def select_dataset():
+    global global_user_id
+    datasets = db.session.query(DatasetInfo).join(User).filter(User.id == global_user_id).all()
+    return flask.render_template('select_dataset.html', datasets=datasets)
+
+
+@app.route('/set_dataset/<int:id>')
+def set_dataset(id):
+    global global_dataset_id
+    global_dataset_id = id
+    return flask.redirect('/')
 
 
 @app.route('/learn', methods=['POST', 'GET'])
@@ -31,6 +44,9 @@ def learn():
 def add_word():
     form = AddWordForm()
     if form.validate_on_submit():
+        question = form.question.data
+        answer = form.answer.data
+        print(question, answer)
         return flask.redirect('/add_word')
 
     return flask.render_template('add_word.html', form=form)
@@ -42,3 +58,4 @@ def add_dataset():
     if form.validate_on_submit():
         return flask.redirect('/add_dataset')
     return flask.render_template('add_dataset.html', form=form)
+
