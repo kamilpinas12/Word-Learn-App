@@ -18,8 +18,9 @@ global_dataset_id = None
 @app.route('/')
 def select_dataset():
     global global_user_id
+    global global_dataset_id
     datasets = db.session.query(DatasetInfo).join(User).filter(User.id == global_user_id).all()
-    return flask.render_template('select_dataset.html', datasets=datasets)
+    return flask.render_template('select_dataset.html', datasets=datasets, current_dataset_id=global_dataset_id)
 
 
 @app.route('/set_dataset/<int:id>')
@@ -79,11 +80,28 @@ def delete_dataset(id):
 @app.route('/stats', methods=['POST', 'GET'])
 def stats():
     global global_dataset_id
-    print(global_dataset_id)
     if global_dataset_id is None:
         return flask.render_template('stats.html', is_dataset_selected=0)
     else:
         pairs = db.session.query(Pair).join(DatasetInfo).filter(DatasetInfo.id == global_dataset_id).all()
-        for i in pairs:
-            print(i)
-        return flask.render_template('/stats.html', is_dataset_selected=1, pairs=pairs)
+        dc = {"Written words": 0, "Accuracy": 0, "Words in dataset": 0, "Word with worst accuracy": '', "Accuracy of "
+                                                                                                     "worst word": 0}
+        worst_accuracy = None
+        worst_accuracy_pair = None
+        correct = 0
+        words = 0
+        for pair in pairs:
+            words += 1
+            typed = pair.correct + pair.wrong
+            dc["Written words"] += typed
+            dc["Words in dataset"] += 1
+            correct += pair.correct
+            acc = pair.correct/typed
+            if worst_accuracy is None or worst_accuracy > acc:
+                worst_accuracy_pair = acc
+                worst_accuracy = pair
+        dc["Accuracy"] = correct / dc["Written words"]
+        dc["Word with worst accuracy"] = worst_accuracy_pair.answer
+        dc["Word with worst accuracy"] = worst_accuracy
+
+        return flask.render_template('/stats.html', is_dataset_selected=1, pairs=pairs, dict=dc)

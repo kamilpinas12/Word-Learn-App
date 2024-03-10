@@ -8,6 +8,9 @@
     <div class="list">
     {% for dataset in datasets %}
         <a href="/set_dataset/{{dataset.id}}">{{dataset.name}}</a>
+        {% if current_dataset_id == dataset.id %}
+            <p>Selected</p>
+        {% endif %}
         <a href="/delete_dataset/{{dataset.id}}", class="delete_dataset">Delete dataset</a>
         <br>
     {% endfor %}

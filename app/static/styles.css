@@ -51,6 +51,7 @@ h1 {
     width: 400px;
 }
 
+
 .list a {
     display: block;
     font-size: 30px;
@@ -61,19 +62,17 @@ h1 {
     width: max-content;
 }
 
-.stats {
-    margin-top: 150px;
-}
-
-.stats p {
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
 
 .list a.delete_dataset {
     font-size: 15px;
     color: #a81616;
     width: 110px;
+}
+
+.list p {
+    font-size: 15px;
+    color: #0dec0d;
+    width:110px
 }
 
 .list a.delete_dataset:hover{
@@ -83,6 +82,20 @@ h1 {
 
 .list a:hover{
     color: #bebebe;
+}
+
+.stats {
+    margin-top: 150px;
+    font-size: 20px;
+}
+
+.stats table.dataset_stats, th, td {
+
+}
+
+.stats table.pairs_stats, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 @media screen and (max-height: 450px){

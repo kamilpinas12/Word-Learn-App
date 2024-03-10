@@ -6,10 +6,49 @@
         <p>Dataset is empty</p>
     {% else %}
     <div class="stats">
-    {% for pair in pairs %}
-        <p>{{pair.question}} - {{pair.answer}}</p>
-        <br>
-    {% endfor %}
+        <h3>Dataset stats</h3>
+
+        <table class="dataset_stats">
+            <tr>
+                <td>Word typed</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Total accuracy</td>
+                <td></td>
+            </tr>
+            <tr>
+                word
+            </tr>
+        </table>
+
+
+        <table class="pairs_stats">
+            <tr>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Correct</th>
+                <th>Wrong</th>
+                <th>Appearances</th>
+                <th>last appearance</th>
+                <th>Accuracy</th>
+            </tr>
+            {% for pair in pairs %}
+            <tr>
+                <td>{{pair.question}}</td>
+                <td>{{pair.answer}}</td>
+                <td>{{pair.correct}}</td>
+                <td>{{pair.wrong}}</td>
+                <td>{{pair.correct + pair.wrong}}</td>
+                <td>{{pair.lst_appearance}}</td>
+                {% if pair.correct + pair.wrong == 0 %}
+                    <td>-</td>
+                {% else %}
+                    <td>{{pair.correct/(pair.correct+pair.wrong)}}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 {% endif %}
 {% else %}
