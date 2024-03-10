@@ -58,8 +58,17 @@ h1 {
     padding-top: 5px;
     padding-right: 5px;
     color: #111111;
+    width: max-content;
 }
 
+.stats {
+    margin-top: 150px;
+}
+
+.stats p {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
 
 .list a.delete_dataset {
     font-size: 15px;

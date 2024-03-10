@@ -6,7 +6,7 @@ from flask import url_for
 from app import app, db
 from app.forms import LearnForm, AddWordForm, AddDataset
 from app.models import User, DatasetInfo, Pair
-from app.db_helpers import add_new_dataset
+from app.db_helpers import add_new_dataset, add_word_to_dataset
 
 app.app_context().push()
 
@@ -47,10 +47,11 @@ def add_word():
     if form.validate_on_submit():
         question = form.question.data
         answer = form.answer.data
+        ret = add_word_to_dataset(global_dataset_id, question, answer)
 
-        return flask.redirect('/add_word')
+        return flask.render_template('add_word.html', ret=ret, is_dataset_selected=1, form=form)
 
-    return flask.render_template('add_word.html', form=form, is_dataset_selected=1 if global_dataset_id else 0)
+    return flask.render_template('add_word.html', form=form, is_dataset_selected=1 if global_dataset_id else 0, ret=None)
 
 
 @app.route('/add_dataset', methods=['POST', 'GET'])
@@ -73,3 +74,16 @@ def delete_dataset(id):
     DatasetInfo.query.filter_by(id=id).delete()
     db.session.commit()
     return flask.redirect('/')
+
+
+@app.route('/stats', methods=['POST', 'GET'])
+def stats():
+    global global_dataset_id
+    print(global_dataset_id)
+    if global_dataset_id is None:
+        return flask.render_template('stats.html', is_dataset_selected=0)
+    else:
+        pairs = db.session.query(Pair).join(DatasetInfo).filter(DatasetInfo.id == global_dataset_id).all()
+        for i in pairs:
+            print(i)
+        return flask.render_template('/stats.html', is_dataset_selected=1, pairs=pairs)

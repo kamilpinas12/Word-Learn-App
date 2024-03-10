@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if is_dataset_selected %}
+    {% if pairs|length < 1 %}
+        <p>Dataset is empty</p>
+    {% else %}
+    <div class="stats">
+    {% for pair in pairs %}
+        <p>{{pair.question}} - {{pair.answer}}</p>
+        <br>
+    {% endfor %}
+    </div>
+{% endif %}
+{% else %}
+    <p>First you need to select dataset</p>
+{% endif %}
+
+
+{% endblock %}
