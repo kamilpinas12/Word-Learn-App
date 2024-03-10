@@ -32,14 +32,48 @@ h1 {
 
 .sidenav a:hover{
     color: #f1f1f1;
+
 }
 
 .main {
-    margin-left: 200px;
+    margin-left: 300px;
+    margin-right: 10px;
     font-size: 28px;
     padding: 0px 10px;
-    margin-top: 70px;
+    margin-top: 90px;
     font-family: verdana;
+}
+
+
+.list {
+    padding-top: 30px;
+    margin_right: 10px;
+    width: 400px;
+}
+
+.list a {
+    display: block;
+    font-size: 30px;
+    text-decoration: none;
+    padding-top: 5px;
+    padding-right: 5px;
+    color: #111111;
+}
+
+
+.list a.delete_dataset {
+    font-size: 15px;
+    color: #a81616;
+    width: 110px;
+}
+
+.list a.delete_dataset:hover{
+    color: #ff0000;
+}
+
+
+.list a:hover{
+    color: #bebebe;
 }
 
 @media screen and (max-height: 450px){

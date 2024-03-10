@@ -9,7 +9,6 @@ def add_new_dataset(user_id, new_dataset_name):
     # created new database = return 1
     # dataset name already used = return 0
 
-    #check if name is already used
     is_name_used = db.session.query(User).filter_by(id=user_id).join(User.dataset).filter(DatasetInfo.name == new_dataset_name).first()
 
     if is_name_used is None:
@@ -19,3 +18,4 @@ def add_new_dataset(user_id, new_dataset_name):
         return 1
     else:
         return 0
+

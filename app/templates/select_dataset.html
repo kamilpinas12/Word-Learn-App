@@ -5,9 +5,12 @@
     <h4>There are no datasets</h4>
 {% else %}
     <h3>Select Dataset</h3>
+    <div class="list">
     {% for dataset in datasets %}
         <a href="/set_dataset/{{dataset.id}}">{{dataset.name}}</a>
+            <a href="/delete_dataset/{{dataset.id}}", class="delete_dataset">Delete dataset</a>
         <br>
     {% endfor %}
+    </div>
 {% endif %}
 {% endblock %}

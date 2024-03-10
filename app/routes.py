@@ -60,6 +60,16 @@ def add_dataset():
     if form.validate_on_submit():
         new = form.dataset_name.data
         ret = add_new_dataset(global_user_id, new)
-        print(new, ret)
         return flask.render_template('add_dataset.html', feedback=ret, new_name=new, form=form)
     return flask.render_template('add_dataset.html', form=form, feedback=None, new_name=None)
+
+
+@app.route('/delete_dataset/<int:id>')
+def delete_dataset(id):
+    global global_dataset_id
+    if id == global_dataset_id:
+        global_dataset_id = None
+
+    DatasetInfo.query.filter_by(id=id).delete()
+    db.session.commit()
+    return flask.redirect('/')
