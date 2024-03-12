@@ -27,7 +27,7 @@ def add_word_to_dataset(dataset_id, question, answer):
 
     if is_pair_in_dataset is None:
         new = Pair(question=question, answer=answer, factor=0, correct=0, wrong=0,
-                   lst_appearance=0, dataset_name=db.session.get(DatasetInfo, dataset_id))
+                   dataset_info=db.session.get(DatasetInfo, dataset_id))
         db.session.add(new)
         db.session.commit()
         return 1

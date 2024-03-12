@@ -14,11 +14,8 @@
                 <td></td>
             </tr>
             <tr>
-                <td>Total accuracy</td>
+                <td>Accuracy</td>
                 <td></td>
-            </tr>
-            <tr>
-                word
             </tr>
         </table>
 
@@ -30,7 +27,6 @@
                 <th>Correct</th>
                 <th>Wrong</th>
                 <th>Appearances</th>
-                <th>last appearance</th>
                 <th>Accuracy</th>
             </tr>
             {% for pair in pairs %}
@@ -40,7 +36,6 @@
                 <td>{{pair.correct}}</td>
                 <td>{{pair.wrong}}</td>
                 <td>{{pair.correct + pair.wrong}}</td>
-                <td>{{pair.lst_appearance}}</td>
                 {% if pair.correct + pair.wrong == 0 %}
                     <td>-</td>
                 {% else %}

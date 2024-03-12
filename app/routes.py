@@ -49,7 +49,8 @@ def add_word():
         question = form.question.data
         answer = form.answer.data
         ret = add_word_to_dataset(global_dataset_id, question, answer)
-
+        if ret == 1:
+            return flask.redirect(url_for('add_word'))
         return flask.render_template('add_word.html', ret=ret, is_dataset_selected=1, form=form)
 
     return flask.render_template('add_word.html', form=form, is_dataset_selected=1 if global_dataset_id else 0, ret=None)
@@ -62,7 +63,9 @@ def add_dataset():
     if form.validate_on_submit():
         new = form.dataset_name.data
         ret = add_new_dataset(global_user_id, new)
-        return flask.render_template('add_dataset.html', feedback=ret, new_name=new, form=form)
+        if ret == 1:
+            return flask.redirect(url_for('add_dataset'))
+        return flask.render_template('add_dataset.html', feedback=ret, new_name=new)
     return flask.render_template('add_dataset.html', form=form, feedback=None, new_name=None)
 
 
@@ -84,24 +87,24 @@ def stats():
         return flask.render_template('stats.html', is_dataset_selected=0)
     else:
         pairs = db.session.query(Pair).join(DatasetInfo).filter(DatasetInfo.id == global_dataset_id).all()
-        dc = {"Written words": 0, "Accuracy": 0, "Words in dataset": 0, "Word with worst accuracy": '', "Accuracy of "
-                                                                                                     "worst word": 0}
-        worst_accuracy = None
-        worst_accuracy_pair = None
-        correct = 0
-        words = 0
-        for pair in pairs:
-            words += 1
-            typed = pair.correct + pair.wrong
-            dc["Written words"] += typed
-            dc["Words in dataset"] += 1
-            correct += pair.correct
-            acc = pair.correct/typed
-            if worst_accuracy is None or worst_accuracy > acc:
-                worst_accuracy_pair = acc
-                worst_accuracy = pair
-        dc["Accuracy"] = correct / dc["Written words"]
-        dc["Word with worst accuracy"] = worst_accuracy_pair.answer
-        dc["Word with worst accuracy"] = worst_accuracy
+        # dc = {"Written words": 0, "Accuracy": 0, "Words in dataset": 0, "Word with worst accuracy": '', "Accuracy of "
+        #                                                                                              "worst word": 0}
+        # worst_accuracy = None
+        # worst_accuracy_pair = None
+        # correct = 0
+        # words = 0
+        # for pair in pairs:
+        #     words += 1
+        #     typed = pair.correct + pair.wrong
+        #     dc["Written words"] += typed
+        #     dc["Words in dataset"] += 1
+        #     correct += pair.correct
+        #     acc = pair.correct/typed
+        #     if worst_accuracy is None or worst_accuracy > acc:
+        #         worst_accuracy_pair = acc
+        #         worst_accuracy = pair
+        # dc["Accuracy"] = correct / dc["Written words"]
+        # dc["Word with worst accuracy"] = worst_accuracy_pair.answer
+        # dc["Word with worst accuracy"] = worst_accuracy
 
-        return flask.render_template('/stats.html', is_dataset_selected=1, pairs=pairs, dict=dc)
+        return flask.render_template('/stats.html', is_dataset_selected=1, pairs=pairs)
