@@ -19,4 +19,4 @@ class AddWordForm(FlaskForm):
 
 class AddDataset(FlaskForm):
     dataset_name = StringField('Enter dataset name', render_kw={'autofocus': True})
-    submit = SubmitField('Submit')
+    submit = SubmitField('Create')

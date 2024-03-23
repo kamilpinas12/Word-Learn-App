@@ -3,6 +3,8 @@
 
 import flask
 from flask import url_for
+from sqlalchemy import delete
+
 from app import app, db
 from app.forms import LearnForm, AddWordForm, AddDataset
 from app.models import User, DatasetInfo, Pair
@@ -76,7 +78,9 @@ def delete_dataset(id):
         global_dataset_id = None
 
     DatasetInfo.query.filter_by(id=id).delete()
+    Pair.query.filter_by(dataset_id=id).delete()
     db.session.commit()
+
     return flask.redirect('/')
 
 

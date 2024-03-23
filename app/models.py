@@ -10,7 +10,7 @@ class User(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True, unique=True)
     dataset: so.WriteOnlyMapped['DatasetInfo'] = so.relationship(
-        back_populates='author', cascade='all, delete-orphan')
+        back_populates='author', cascade='all, delete, delete-orphan')
 
     def __repr__(self):
         return f'User {self.username}'
@@ -24,7 +24,7 @@ class DatasetInfo(db.Model):
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id), index=True)
 
     pair: so.WriteOnlyMapped['Pair'] = so.relationship(
-        back_populates='dataset_info', cascade='all, delete-orphan')
+        back_populates='dataset_info', cascade='all, delete, delete-orphan')
 
     def __repr__(self):
         return f'Dataset: {self.name}'
