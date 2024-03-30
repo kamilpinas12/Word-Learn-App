@@ -89,9 +89,18 @@ h1 {
     font-size: 20px;
 }
 
-.stats table.dataset_stats, th, td {
 
+.stats a.delete_word{
+    font-size: 15px;
+    color: #a81616;
+    width: 110px;
+    text-decoration: none;
 }
+
+.stats a.delete_word:hover{
+    color: #ff0000;
+}
+
 
 .stats table.pairs_stats, th, td {
     margin-top: 20px;

@@ -6,8 +6,13 @@
     {% if is_dataset_selected %}
     <form autocomplete="off" action="" method="POST" novalidate>
         {{ form.hidden_tag() }}
+            {% if question %}
+                <p>{{question.question}}</p>
+            {% else %}
+                <p>Dataset is empty</p>
+
+            {% endif %}
         <p>
-            {{ form.answer.label }} <br>
             {{ form.answer(size=32) }}
         </p>
         <p>

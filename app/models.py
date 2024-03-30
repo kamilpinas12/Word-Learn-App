@@ -19,6 +19,8 @@ class User(db.Model):
 class DatasetInfo(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(30), index=True, unique=True)
+    most_appearances: so.Mapped[int] = so.mapped_column(index=True)
+    most_lst_appearances: so.Mapped[int] = so.mapped_column(index=True)
 
     author: so.Mapped[User] = so.relationship(back_populates='dataset')
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id), index=True)
@@ -36,10 +38,10 @@ class Pair(db.Model):
     answer: so.Mapped[str] = so.mapped_column(sa.String(30), index=True, unique=True)
     factor: so.Mapped[float] = so.mapped_column(index=True)
     correct: so.Mapped[int] = so.mapped_column(index=True)
-    wrong: so.Mapped[float] = so.mapped_column(index=True)
+    wrong: so.Mapped[int] = so.mapped_column(index=True)
+    lst_appearance: so.Mapped[int] = so.mapped_column(index=True)
 
-    dataset_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(DatasetInfo.id),
-                                                  index=True)
+    dataset_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(DatasetInfo.id), index=True)
     dataset_info: so.Mapped[DatasetInfo] = so.relationship(
         back_populates='pair')
 

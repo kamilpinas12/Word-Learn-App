@@ -1,8 +1,8 @@
-"""first
+"""init
 
-Revision ID: bc0c22e513ea
+Revision ID: 65dac222f109
 Revises: 
-Create Date: 2024-03-12 11:02:59.158626
+Create Date: 2024-03-24 17:52:11.721417
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bc0c22e513ea'
+revision = '65dac222f109'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,11 +29,15 @@ def upgrade():
     op.create_table('dataset_info',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=30), nullable=False),
+    sa.Column('most_appearances', sa.Integer(), nullable=False),
+    sa.Column('most_lst_appearances', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('dataset_info', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_dataset_info_most_appearances'), ['most_appearances'], unique=False)
+        batch_op.create_index(batch_op.f('ix_dataset_info_most_lst_appearances'), ['most_lst_appearances'], unique=False)
         batch_op.create_index(batch_op.f('ix_dataset_info_name'), ['name'], unique=True)
         batch_op.create_index(batch_op.f('ix_dataset_info_user_id'), ['user_id'], unique=False)
 
@@ -43,7 +47,8 @@ def upgrade():
     sa.Column('answer', sa.String(length=30), nullable=False),
     sa.Column('factor', sa.Float(), nullable=False),
     sa.Column('correct', sa.Integer(), nullable=False),
-    sa.Column('wrong', sa.Float(), nullable=False),
+    sa.Column('wrong', sa.Integer(), nullable=False),
+    sa.Column('lst_appearance', sa.Integer(), nullable=False),
     sa.Column('dataset_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['dataset_id'], ['dataset_info.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -53,6 +58,7 @@ def upgrade():
         batch_op.create_index(batch_op.f('ix_pair_correct'), ['correct'], unique=False)
         batch_op.create_index(batch_op.f('ix_pair_dataset_id'), ['dataset_id'], unique=False)
         batch_op.create_index(batch_op.f('ix_pair_factor'), ['factor'], unique=False)
+        batch_op.create_index(batch_op.f('ix_pair_lst_appearance'), ['lst_appearance'], unique=False)
         batch_op.create_index(batch_op.f('ix_pair_question'), ['question'], unique=True)
         batch_op.create_index(batch_op.f('ix_pair_wrong'), ['wrong'], unique=False)
 
@@ -64,6 +70,7 @@ def downgrade():
     with op.batch_alter_table('pair', schema=None) as batch_op:
         batch_op.drop_index(batch_op.f('ix_pair_wrong'))
         batch_op.drop_index(batch_op.f('ix_pair_question'))
+        batch_op.drop_index(batch_op.f('ix_pair_lst_appearance'))
         batch_op.drop_index(batch_op.f('ix_pair_factor'))
         batch_op.drop_index(batch_op.f('ix_pair_dataset_id'))
         batch_op.drop_index(batch_op.f('ix_pair_correct'))
@@ -73,6 +80,8 @@ def downgrade():
     with op.batch_alter_table('dataset_info', schema=None) as batch_op:
         batch_op.drop_index(batch_op.f('ix_dataset_info_user_id'))
         batch_op.drop_index(batch_op.f('ix_dataset_info_name'))
+        batch_op.drop_index(batch_op.f('ix_dataset_info_most_lst_appearances'))
+        batch_op.drop_index(batch_op.f('ix_dataset_info_most_appearances'))
 
     op.drop_table('dataset_info')
     with op.batch_alter_table('user', schema=None) as batch_op:

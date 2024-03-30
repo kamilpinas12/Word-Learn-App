@@ -20,6 +20,7 @@
             {{ form.submit() }}
         </p>
     </form>
+
     {% else %}
         <p>First you need to select dataset</p>
     {% endif %}
@@ -27,5 +28,8 @@
     {% if ret == 0 %}
         <p>This word is already added</p>
     {% endif %}
+
+
+
 
 {% endblock %}

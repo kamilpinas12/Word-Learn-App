@@ -11,11 +11,15 @@
         <table class="dataset_stats">
             <tr>
                 <td>Word typed</td>
-                <td></td>
+                <td>{{word_typed}}</td>
             </tr>
             <tr>
                 <td>Accuracy</td>
-                <td></td>
+                    {% if accuracy != -1 %}
+                        <td>{{accuracy}} %</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
             </tr>
         </table>
 
@@ -28,6 +32,7 @@
                 <th>Wrong</th>
                 <th>Appearances</th>
                 <th>Accuracy</th>
+                <th>Delete</th>
             </tr>
             {% for pair in pairs %}
             <tr>
@@ -39,8 +44,12 @@
                 {% if pair.correct + pair.wrong == 0 %}
                     <td>-</td>
                 {% else %}
-                    <td>{{pair.correct/(pair.correct+pair.wrong)}}</td>
+                    <td>{{100 * pair.correct//(pair.correct+pair.wrong)}} %</td>
                 {% endif %}
+                <td>
+                    <a href="/delete_word/{{pair.id}}" class="delete_word">Delete word</a>
+                </td>
+
             </tr>
             {% endfor %}
         </table>

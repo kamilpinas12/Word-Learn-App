@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Learn</h3>
+<form autocomplete="off" action="" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+        {% if question %}
+            <p>{{question.question}}</p>
+        {% else %}
+            <p>Dataset is empty</p>
+
+        {% endif %}
+    <p>
+        {{ form.answer(size=32) }}
+    </p>
+    <p>Correct answer is: {{question.answer}}</p>
+    <p>
+        {{ form.submit() }} <br>
+    </p>
+</form>
+
+{% endblock %}
+
+
+
+
+
+
+
+
